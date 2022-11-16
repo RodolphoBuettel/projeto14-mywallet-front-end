@@ -1,53 +1,88 @@
 import {Container, Name, Login, Button} from "../RepeatedStyles/SignInAndUpStyles";
 import {Link} from "react-router-dom";
 import styled from "styled-components";
+import { useState } from "react";
+import axios from "axios";
+import {useNavigate} from "react-router-dom";
 
 export default function SignUp() {
+
+    const navigate = useNavigate()
+
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [confirmedPassword, setConfirmedPassword] = useState("");
+
+    function Register(e){
+        e.preventDefault();
+        console.log(e);
+
+        const URL = "http://localhost:5000/sign-up";
+
+        const user = {
+            name: name,
+            email: email,
+            password: password,
+            confirmedPassword: confirmedPassword
+        }
+
+        console.log(user);
+        const promisse = axios.post(URL, user);
+
+        promisse.then((res) => {
+            console.log(res);
+            navigate("/sign-in");
+        })
+
+        promisse.catch((err) => console.log(err.response.data));
+    }  
+
     return (
         <Container>
             <Name>
                 <h1>MyWallet</h1>
             </Name>
-            <Login>
+            <Login onSubmit={Register}>
                 <div>
                     <input id="nome" type="nome"
-                        // value={nome}
-                        // onChange={
-                        //     (e) => setNome(e.target.value)
-                        // }
+                        value={name}
+                        onChange={
+                            (e) => setName(e.target.value)
+                        }
                         placeholder=" Nome"
                         required/>
                 </div>
                 <div>
                     <input id="email" type="email"
-                        // value={email}
-                        // onChange={
-                        //     (e) => setEmail(e.target.value)
-                        // }
+                        value={email}
+                        onChange={
+                            (e) => setEmail(e.target.value)
+                        }
                         placeholder=" E-mail"
                         required
                     />
                 </div>
                 <div>
                     <input id="password" type="password"
-                        // value={senha}
-                        // onChange={
-                        //     (e) => setSenha(e.target.value)
-                        // }
+                        value={password}
+                        onChange={
+                            (e) => setPassword(e.target.value)
+                        }
                         placeholder=" Senha"
                         required
                     />
                 </div>
                 <div>
                     <input id="ConfirmeASenha" type="password"
-                        // value={url}
-                        // onChange={
-                        //     (e) => setUrl(e.target.value)
-                        // }
+                        value={confirmedPassword}
+                        onChange={
+                            (e) => setConfirmedPassword(e.target.value)
+                        }
                         placeholder=" Confirme a senha"
                         required/>
                 </div>
-                <Button>
+                <Button type = "submit">
                     <h2>Cadastrar</h2>
                 </Button>
             </Login>

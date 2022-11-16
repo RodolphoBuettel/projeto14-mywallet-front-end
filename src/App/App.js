@@ -6,6 +6,7 @@ import Extract from "../Extract/Extract";
 import Deposit from "../Deposit/Deposit";
 import Withdraw from "../Withdraw/Withdraw";
 import GlobalStyle from "../GlobalStyle";
+import Acess from "../Acess/Acess";
 
 export default function App() {
     return(
@@ -13,6 +14,8 @@ export default function App() {
          <BrowserRouter>
             <GlobalStyle/>
                 <Routes>
+                <Route path="/"
+                        element={<Acess/>}/>
                     <Route path="sign-in"
                         element={<SignIn/>}/>
                     <Route path="sign-up"

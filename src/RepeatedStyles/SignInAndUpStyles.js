@@ -39,10 +39,10 @@ color: #000000;
     }
    
 `
-export const Button = styled.div`
+export const Button = styled.button`
 width: 326px;
 height: 46px;
-
+border: none;
 margin-bottom: 20px;
 background: #A328D6;
 border-radius: 5px;
