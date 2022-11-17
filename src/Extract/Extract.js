@@ -4,12 +4,17 @@ import LogOff from "../Assets/LogOff.png";
 import AddEntry from "../Assets/NewEntry.png";
 import AddExit from "../Assets/NewExit.png";
 import {Link} from "react-router-dom";
+import { useContext } from "react";
+import UserContext from "../Context/ContextApi";
 
 export default function Extract() {
+
+    const {name} = useContext(UserContext);
+
     return (
         <Container>
             <Message>
-                <h1>Olá, Fulano</h1>
+                <h1>Olá, {name}</h1>
                 <LogOut>
                     <img src={LogOff}
                         alt="logOff"/>

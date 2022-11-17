@@ -1,32 +1,65 @@
 import { Container, Name, Login, Button } from "../RepeatedStyles/SignInAndUpStyles";
 import styled from "styled-components";
-import {Link} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useContext, useState } from "react";
+import axios from "axios";
+import UserContext from "../Context/ContextApi";
 
 export default function SignIn() {
+
+    const navigate = useNavigate();
+
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+
+    const {setName} = useContext(UserContext);
+
+    function Logar(e) {
+        e.preventDefault();
+
+        const URL = "http://localhost:5000/sign-in";
+
+        const user = {
+            email,
+            password
+        }
+
+        const promisse = axios.post(URL, user);
+
+        promisse.then((res) => {
+           setName(res.data.name);
+            // localStorage.setItem('token', JSON.stringify(res.data.token));
+            navigate("/extract");
+        })
+
+        promisse.catch((err) => console.log(err.response.data));
+
+    }
+
     return (
         <Container>
             <Name>
                 <h1>MyWallet</h1>
             </Name>
-            <Login>
+            <Login onSubmit={Logar}>
                 <div>
                     <input id="email" type="email"
-                        // value={email}
-                        // onChange={
-                        //     (e) => setEmail(e.target.value)
-                        // }
+                        value={email}
+                        onChange={
+                            (e) => setEmail(e.target.value)
+                        }
                         placeholder=" E-mail"
                         required
                     />
                 </div>
                 <div>
                     <input id="password" type="password"
-                        // value={senha}
-                        // onChange={
-                        //     (e) => setSenha(e.target.value)
-                        // }
+                        value={password}
+                        onChange={
+                            (e) => setPassword(e.target.value)
+                        }
                         placeholder=" Senha"
-                        required/>
+                        required />
                 </div>
                 <Button><h2>Entrar</h2></Button>
             </Login>

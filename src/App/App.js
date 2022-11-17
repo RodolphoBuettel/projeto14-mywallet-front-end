@@ -7,10 +7,11 @@ import Deposit from "../Deposit/Deposit";
 import Withdraw from "../Withdraw/Withdraw";
 import GlobalStyle from "../GlobalStyle";
 import Acess from "../Acess/Acess";
+import { UserProvider } from "../Context/ContextApi";
 
 export default function App() {
     return(
-        // <UserProvider>
+        <UserProvider>
          <BrowserRouter>
             <GlobalStyle/>
                 <Routes>
@@ -28,6 +29,6 @@ export default function App() {
                         element={<Withdraw/>}/>
                 </Routes>
         </BrowserRouter>
-        // </UserProvider>
+        </UserProvider>
     )
 }
