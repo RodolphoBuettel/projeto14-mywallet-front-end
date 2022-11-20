@@ -7,7 +7,7 @@ export default function Acess() {
             <Welcome>
                 <h1>Seja bem-vindo(a) ao MyWallet</h1>
             </Welcome>
-            <Link to = "/sign-in"><Menssagem>
+            <Link  style={{ textDecoration: 'none' }} to = "/sign-in"><Menssagem>
                 <h2>Clique aqui para acessar sua Wallet</h2>
             </Menssagem></Link>
         </Contains>

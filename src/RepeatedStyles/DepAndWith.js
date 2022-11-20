@@ -6,10 +6,13 @@ min-height: 100vh;
 background-color: rgb(140,17,190);
 display: flex;
 flex-direction: column;
+align-items: center;
 div{
-    margin-left: 24px;
-margin-top: 25px;
+    display: flex;
     h1{
+        margin-bottom: 10px;
+        margin-top: 10px;
+        margin-left: -150px;
         width: 168px;
 height: 31px;
 

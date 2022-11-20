@@ -12,7 +12,7 @@ export default function SignIn() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    const {setName} = useContext(UserContext);
+    const { setName } = useContext(UserContext);
 
     function Logar(e) {
         e.preventDefault();
@@ -27,8 +27,9 @@ export default function SignIn() {
         const promisse = axios.post(URL, user);
 
         promisse.then((res) => {
-           setName(res.data.name);
-            // localStorage.setItem('token', JSON.stringify(res.data.token));
+            setName(res.data.name);
+            localStorage.setItem('name', JSON.stringify(res.data.name));
+            localStorage.setItem('token', JSON.stringify(res.data.token));
             navigate("/extract");
         })
 
@@ -63,13 +64,14 @@ export default function SignIn() {
                 </div>
                 <Button><h2>Entrar</h2></Button>
             </Login>
-            <Register><Link to="/sign-up"><h3>Primeira vez? Cadastre-se!</h3></Link></Register>
+            <Register><Link style={{ textDecoration: 'none' }} to="/sign-up"><h3>Primeira vez? Cadastre-se!</h3></Link></Register>
         </Container>
     )
 }
 
 const Register = styled.div`
 width: 227px;
+text-align: center;
 h3{
     font-family: 'Raleway';
 font-style: normal;

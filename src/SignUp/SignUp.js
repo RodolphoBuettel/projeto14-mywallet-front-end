@@ -27,7 +27,6 @@ export default function SignUp() {
             confirmedPassword: confirmedPassword
         }
 
-        console.log(user);
         const promisse = axios.post(URL, user);
 
         promisse.then((res) => {
@@ -86,7 +85,7 @@ export default function SignUp() {
                     <h2>Cadastrar</h2>
                 </Button>
             </Login>
-            <Logar><Link to="/sign-in"><h3>Já tem uma conta? Entre agora!</h3></Link></Logar>
+            <Logar><Link style={{ textDecoration: 'none' }} to="/sign-in"><h3>Já tem uma conta? Entre agora!</h3></Link></Logar>
         </Container>
     )
 }
