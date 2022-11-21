@@ -7,7 +7,8 @@ export default function Transaction({ t }) {
 
     const { value, type, description, time } = t;
 
-    const valueDecimal = value.toFixed(2);
+    const valueDecimal = parseFloat(value).toFixed(2);
+    console.log(valueDecimal);
     const [color, setColor] = useState("");
 
     useEffect(() => {
@@ -15,10 +16,8 @@ export default function Transaction({ t }) {
             setColor("#03AC00");
         } else {
             setColor("#C70000");
-        }
-       
+        }    
     }, [type]);
-
 
     return (
         <Cont>

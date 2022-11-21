@@ -1,43 +1,68 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import styled from "styled-components"
 import { Container } from "../RepeatedStyles/SignInAndUpStyles"
 import LogOff from "../Assets/LogOff.png";
 import AddEntry from "../Assets/NewEntry.png";
 import AddExit from "../Assets/NewExit.png";
 import { Link } from "react-router-dom";
-import { useContext, useEffect, useState } from "react";
-import UserContext from "../Context/ContextApi";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import Transaction from "./Transaction";
 
 export default function Extract() {
 
-    // const { name } = useContext(UserContext);
-
     const [transactions, setTransactions] = useState([]);
-    // const [rendTrans, setRendTrans] = useState("Não há registros de entrada ou saída");
+    const [balance, setBalance] = useState(0);
+    const [color, setColor] = useState("");
 
     const token = JSON.parse(localStorage.getItem('token'));
     const name = JSON.parse(localStorage.getItem('name'));
 
-    const URL = "http://localhost:5000/extract";
+    function updateBalance(arr) {
+        let soma = 0;
+        arr.forEach(obj => {
+            if (obj.type === "deposit") {
+                soma += Number(obj.value)
+            }
+            else {
+                soma -= Number(obj.value)
+            }
+        });
+        if (balance > -1) {
+            setColor("#03AC00");
+        }
+        else {
+            setColor("#C70000");
+        }
 
-    useEffect(()=>{
+        return setBalance(soma);
+    };
+
+    useEffect(() => {
+
+        const URL = "http://localhost:5000/extract";
 
         const promise = axios.get(
-            URL, {headers: {
+            URL, {
+            headers: {
                 'Authorization': `Bearer ${token}`
-            }}
+            }
+        }
         );
-    
+
         promise.then((res) => {
             setTransactions(res.data);
+            updateBalance(transactions);
+
         });
-    
+
         promise.catch((err) => {
             console.log(err.response.data);
         });
-    
+
     }, [token]);
+
+   
 
     return (
         <Container>
@@ -49,7 +74,8 @@ export default function Extract() {
                 </LogOut>
             </Message>
             <Records>
-                {transactions.map((t, index)=> <Transaction key={index} t={t}/>)}
+                {transactions.map((t, index) => <Transaction key={index} t={t} />)}
+                <Saldo><h3>SALDO</h3><Balance color={color}>{parseFloat(balance).toFixed(2)}</Balance></Saldo>
             </Records>
             <Actions>
                 <div>
@@ -95,6 +121,7 @@ const LogOut = styled.div`
     margin-right: 30px;
 `
 const Records = styled.div`
+position:relative;
     width: 326px;
 height: 446px;
 margin-top: -50px;
@@ -103,7 +130,7 @@ border-radius: 5px;
 display: flex;
 margin-bottom:20px;
 flex-direction: column;
-overflow: hidden;
+overflow: scroll;
 `
 const Actions = styled.div`
 margin-bottom: -100px;
@@ -133,4 +160,27 @@ border-radius: 5px;
             color: #FFFFFF;
         }
     }
+`
+const Saldo = styled.div`
+position: absolute;
+display:flex;
+justify-content: space-around;
+width: 326px;
+background-color: white;
+z-index: 1;
+bottom: 10px;
+h3{
+    margin-right: 10px;
+    font-family: 'Raleway';
+font-style: normal;
+font-weight: 700;
+font-size: 25px;
+line-height: 20px;
+color: #000000;
+}
+`
+const Balance = styled.div`
+margin-right: 10px;
+color:${props => props.color};
+font-size: 25px;
 `

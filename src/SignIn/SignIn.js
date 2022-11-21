@@ -1,9 +1,8 @@
 import { Container, Name, Login, Button } from "../RepeatedStyles/SignInAndUpStyles";
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import axios from "axios";
-import UserContext from "../Context/ContextApi";
 
 export default function SignIn() {
 
@@ -11,8 +10,6 @@ export default function SignIn() {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-
-    const { setName } = useContext(UserContext);
 
     function Logar(e) {
         e.preventDefault();
@@ -27,7 +24,6 @@ export default function SignIn() {
         const promisse = axios.post(URL, user);
 
         promisse.then((res) => {
-            setName(res.data.name);
             localStorage.setItem('name', JSON.stringify(res.data.name));
             localStorage.setItem('token', JSON.stringify(res.data.token));
             navigate("/extract");

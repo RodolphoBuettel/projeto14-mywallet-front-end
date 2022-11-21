@@ -46,7 +46,7 @@ export default function Withdraw(){
                 <div><h1>Nova Saída</h1></div>
                 <Padronized onSubmit={Deposit}>
                 <div>
-                        <input id="valor" type="number"
+                        <input id="valor" type="number" pattern="[0-9]+([,\.][0-9]+)?" min="0" step="0.010"
                             value={valueInput}
                             onChange={
                                 (e) => setValueInput(e.target.value)

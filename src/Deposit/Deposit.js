@@ -18,7 +18,7 @@ export default function Deposit(){
 
         const URL = "http://localhost:5000/extract";
 
-        const value = parseInt(valueInput);
+        const value = parseFloat(valueInput);
 
         const deposited = {
             value,
@@ -46,7 +46,7 @@ export default function Deposit(){
             <div><h1>Nova Entrada</h1></div>
             <Padronized onSubmit={Deposit}>
             <div>
-                    <input id="number" type="number"
+                    <input id="number" type="number" pattern="[0-9]+([,\.][0-9]+)?" min="0" step="any"
                         value={valueInput}
                         onChange={
                             (e) => setValueInput(e.target.value)
