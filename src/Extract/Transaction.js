@@ -21,7 +21,7 @@ export default function Transaction({ t }) {
 
     return (
         <Cont>
-            <Day>{time}</Day> <Description>{description}</Description> <Value color={color}>{valueDecimal}</Value>
+            <Day>{time}</Day> <Description>{description}</Description> <Value color={color}>R$ {valueDecimal}</Value>
         </Cont>
 
     )
@@ -44,7 +44,7 @@ line-height: 19px;
 const Value = styled.h3`
 color:${props => props.color};
 margin-right: 10px;
-margin-left: 10px;
+margin-left: -10px;
 margin-top: 20px;
 `
 

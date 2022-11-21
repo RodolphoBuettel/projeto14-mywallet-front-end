@@ -18,26 +18,6 @@ export default function Extract() {
     const token = JSON.parse(localStorage.getItem('token'));
     const name = JSON.parse(localStorage.getItem('name'));
 
-    function updateBalance(arr) {
-        let soma = 0;
-        arr.forEach(obj => {
-            if (obj.type === "deposit") {
-                soma += Number(obj.value)
-            }
-            else {
-                soma -= Number(obj.value)
-            }
-        });
-        if (balance > -1) {
-            setColor("#03AC00");
-        }
-        else {
-            setColor("#C70000");
-        }
-
-        return setBalance(soma);
-    };
-
     useEffect(() => {
 
         const URL = "http://localhost:5000/extract";
@@ -52,7 +32,23 @@ export default function Extract() {
 
         promise.then((res) => {
             setTransactions(res.data);
-            updateBalance(transactions);
+           
+            let soma = 0;
+            res.data.forEach(obj => {
+                if (obj.type === "deposit") {
+                    soma += Number(obj.value)
+                }
+                else {
+                    soma -= Number(obj.value)
+                }
+            });
+            if (soma > -1) {
+                setColor("#03AC00");
+            }
+            else {
+                setColor("#C70000");
+            }
+            return setBalance(soma);
 
         });
 
@@ -61,8 +57,6 @@ export default function Extract() {
         });
 
     }, [token]);
-
-   
 
     return (
         <Container>
